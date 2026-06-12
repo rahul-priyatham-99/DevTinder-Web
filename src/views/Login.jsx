@@ -10,6 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [emailId, setEmailId] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("")
 
   const handleLogin = async () => {
     try {
@@ -21,6 +22,7 @@ const Login = () => {
       dispatch(addUser(userData))
       navigate("/")
     } catch (err) {
+      setErrorMessage(err.response.data);
       console.error(err)
     }
   };
@@ -32,7 +34,7 @@ const Login = () => {
           <div>
             <label className="form-control w-full max-w-xs p-4">
               <div className="label -ml-4 mt-3">
-                <span className="label-text mb-1">Email</span>
+                <span className="label-text mb-1">Email:</span>
               </div>
               <input
                 type="text"
@@ -43,7 +45,7 @@ const Login = () => {
             </label>
             <label className="form-control w-full max-w-xs p-4">
               <div className="label -ml-4 mt-3">
-                <span className="label-text mb-1">Password</span>
+                <span className="label-text mb-1">Password:</span>
               </div>
               <input
                 type="text"
@@ -53,8 +55,14 @@ const Login = () => {
               />
             </label>
           </div>
+          <p className="text-red-500 text-center my-2">{errorMessage && errorMessage}</p>
           <div className="card-actions justify-center mt-4">
-            <button className="btn bg-primary px-4" onClick={() => handleLogin()}>Login</button>
+            <button
+              className="btn bg-primary px-4"
+              onClick={() => handleLogin()}
+            >
+              Login
+            </button>
           </div>
         </div>
       </div>
