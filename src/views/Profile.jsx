@@ -1,9 +1,18 @@
-import React from 'react'
+import React from "react";
+import ProfileForm from "../components/ProfileForm";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
+  const user = useSelector((store) => store.user);
   return (
-    <div>Profile</div>
-  )
-}
+    <>
+      {user && (
+        <div>
+          <ProfileForm user={user} />
+        </div>
+      )}
+    </>
+  );
+};
 
-export default Profile
+export default Profile;
