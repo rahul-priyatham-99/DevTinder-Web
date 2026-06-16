@@ -9,7 +9,7 @@ const ProfileForm = ({ user }) => {
   const dispatch = useDispatch();
   const [firstName, setFirstname] = useState(user.firstName || "");
   const [lastName, setLastName] = useState(user.lastName || "");
-  const [age, setAge] = useState(user.age || "");
+  const [age, setAge] = useState(user.age || 0);
   const [gender, setGender] = useState(user.gender || "");
   const [about, setAbout] = useState(user.about || "");
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl || "");
@@ -37,7 +37,7 @@ const ProfileForm = ({ user }) => {
         setShowToast(false);
       }, 1000);
     } catch (err) {
-      console.log(err.response);
+      console.error(err.response);
       setErrorMessage(err.response.data);
     }
   };
@@ -83,7 +83,7 @@ const ProfileForm = ({ user }) => {
                     <span className="label-text mb-1">Age:</span>
                   </div>
                   <input
-                    type="text"
+                    type="number"
                     className="input input-bordered w-full max-w-xs px-2"
                     value={age}
                     onChange={(e) => setAge(e.target.value)}
@@ -93,12 +93,15 @@ const ProfileForm = ({ user }) => {
                   <div className="label -ml-4 mt-3">
                     <span className="label-text mb-1">Gender:</span>
                   </div>
-                  <input
-                    type="text"
-                    className="input input-bordered w-full max-w-xs px-2"
+                  <select
+                    className="select select-bordered w-full max-w-xs p-2"
                     value={gender}
                     onChange={(e) => setGender(e.target.value)}
-                  />
+                  >
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Others">Others</option>
+                  </select>
                 </label>
                 <label className="form-control w-full max-w-xs p-4">
                   <div className="label -ml-4 mt-3">

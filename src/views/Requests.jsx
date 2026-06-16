@@ -67,7 +67,7 @@ const Requests = () => {
                   {age} • {gender}
                 </p>
 
-                <p className="mt-1 text-sm">{about}</p>
+                <p className="mt-1 text-sm">{(about && about.length > 50) ? about.slice(0, 85) + "..." : about}</p>
               </div>
               <div className="ml-auto flex gap-3">
                 <button

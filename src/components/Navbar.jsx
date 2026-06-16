@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { Link } from "react-router-dom";
 import { removeUser } from "../../store/userSlice";
+import { removeFeed } from "../../store/feedSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Navbar = () => {
       );
       if (res.status === 200) {
         dispatch(removeUser());
+        dispatch(removeFeed([]));
         navigate("/login");
       }
     } catch (err) {

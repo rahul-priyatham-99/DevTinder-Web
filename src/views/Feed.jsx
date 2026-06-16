@@ -9,7 +9,6 @@ const Feed = () => {
   const dispatch = useDispatch();
   const feed = useSelector((store) => store.feed);
   const fetchFeed = async () => {
-    if (feed) return;
     try {
       const res = await axios.get(BASE_URL + "/feed", {withCredentials: true});
       dispatch(addFeed(res.data.data));
@@ -20,16 +19,18 @@ const Feed = () => {
   useEffect(() => {
     fetchFeed();
   }, [])
+
+  if (!feed || feed.length <= 0)
+    return <h1 className="flex justify-center my-20">No users found !!!</h1>;
   return (
-    <div className="flex justify-start mt-5 overflow-x-auto">
-      {feed &&
-        feed?.map((item) => {
-          return (
-            <div className="w-100 p-10" key={item._id}>
-              <UserCard user={item} />
-            </div>
-          );
-        })}
+    <div className="flex justify-center my-20 overflow-x-auto">
+      <div className="w-100">
+        {feed && (
+          <div>
+            <UserCard user={feed?.[0]} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
